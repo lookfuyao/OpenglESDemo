@@ -140,13 +140,13 @@ public class RendererCubeMVP extends RendererBase {
     }
 
     public void rotateX(float angle) {
-        float val = mModel.getPitch() + angle;
+        float val = mModel.getPitch() + angle % 360.0f;
         if(val >= 360) val = 0;
         mModel.setPitch(val);
     }
 
     public void rotateY(float angle) {
-        float val = mModel.getYaw() + angle;
+        float val = mModel.getYaw() + angle % 360.0f;
         if(val >= 360) val = 0;
         mModel.setYaw(val);
     }
