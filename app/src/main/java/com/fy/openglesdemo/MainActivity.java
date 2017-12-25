@@ -26,6 +26,7 @@ public class MainActivity extends ListActivity {
             {"2 Draw a Rectangle", "Draw a Rectangle with openGL ES"},
             {"3 Draw a Picture", "Draw a Picture with openGL ES"},
             {"4 Draw a Picture", "Draw a Picture with openGL ES, Support gesture control"},
+            {"5 Draw a Cube", "Draw a Cube with openGL ES, Support gesture control"},
     };
 
     private static final Class<?>[] classes = {
@@ -33,6 +34,7 @@ public class MainActivity extends ListActivity {
             ActivityRectangle.class,
             ActivityPicture.class,
             ActivityPictureGesture.class,
+            ActivityCubeGesture.class
     };
 
     /**

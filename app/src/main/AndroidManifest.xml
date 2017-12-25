@@ -32,6 +32,10 @@
         <activity
             android:name=".ActivityPictureGesture"
             android:label="Gesture Picture" />
+        <activity
+            android:name=".ActivityCubeGesture"
+            android:label="Gesture Picture" />
+
     </application>
 
 </manifest>

@@ -10,7 +10,7 @@ public class Projection {
 
     private float[] mMatrix = null;
 
-    public static final int TYPE_frustumM = 0;
+    public static final int TYPE_perspectiveM = 0;
     public static final int TYPE_orthoM = 1;
 
     private float left;
@@ -19,7 +19,11 @@ public class Projection {
     private float top;
     private float near;
     private float far;
-    private int mType = TYPE_frustumM;
+
+    private float fov;
+    private float aspect;
+
+    private int mType = TYPE_perspectiveM;
     private boolean change = true;
 
     public Projection(int mType) {
@@ -80,19 +84,40 @@ public class Projection {
         this.far = far;
     }
 
+    public float getFov() {
+        return fov;
+    }
+
+    public void setFov(float fov) {
+        change |= this.fov != fov;
+        this.fov = fov;
+    }
+
+    public float getAspect() {
+        return aspect;
+    }
+
+    public void setAspect(float aspect) {
+        change |= this.aspect != aspect;
+        this.aspect = aspect;
+    }
+
     @Override
     public String toString() {
-        return "Projection{left=" + left +
+        return "Projection{" +
+                "left=" + left +
                 ", right=" + right +
                 ", bottom=" + bottom +
                 ", top=" + top +
                 ", near=" + near +
                 ", far=" + far +
+                ", fov=" + fov +
+                ", aspect=" + aspect +
                 ", mType=" + mType +
                 '}';
     }
 
-    public float[] getMartix() {
+    public float[] getMatrix() {
         if (null == mMatrix) {
             mMatrix = new float[16];
         }
@@ -103,8 +128,8 @@ public class Projection {
 
         change = false;
         switch (mType) {
-            case TYPE_frustumM:
-                Matrix.frustumM(mMatrix, 0, left, right, bottom, top, near, far);
+            case TYPE_perspectiveM:
+                Matrix.perspectiveM(mMatrix, 0, fov, aspect, near, far);
                 break;
             case TYPE_orthoM:
                 Matrix.orthoM(mMatrix, 0, left, right, bottom, top, near, far);
