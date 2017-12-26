@@ -68,15 +68,15 @@ public class RendererPictureMVP extends RendererBase {
     }
 
     public void rotateX(float angle) {
-        mModel.setAngleX(mModel.getAngleX() + angle);
+        float val = mModel.getPitch() + angle % 360.0f;
+        if(val >= 360) val = 0;
+        mModel.setPitch(val);
     }
 
     public void rotateY(float angle) {
-        mModel.setAngleY(mModel.getAngleY() + angle);
-    }
-
-    public void rotateZ(float angle) {
-        mModel.setAngleZ(mModel.getAngleZ() + angle);
+        float val = mModel.getYaw() + angle % 360.0f;
+        if(val >= 360) val = 0;
+        mModel.setYaw(val);
     }
 
     public void transferX(float value) {

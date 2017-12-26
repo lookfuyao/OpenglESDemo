@@ -58,6 +58,23 @@ public class RendererPicture extends RendererBase {
         super(context);
     }
 
+    private int mWidth, mHeight;
+    boolean mFix;
+
+    public void revertFixAspect() {
+        if(mFix) {
+            Matrix.setIdentityM(mProjectionMatrix, 0);
+        } else {
+            float ratio = mWidth > mHeight ? (float) mWidth / mHeight : (float) mHeight / mWidth;
+            if (mWidth > mHeight) {
+                Matrix.orthoM(mProjectionMatrix, 0, -ratio, ratio, -1f, 1f, -1f, 1f);
+            } else {
+                Matrix.orthoM(mProjectionMatrix, 0, -1f, 1f, -ratio, ratio, -1f, 1f);
+            }
+        }
+        mFix = !mFix;
+    }
+
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         String vertexShader = ShaderUtils.readRawTextFile(mContext, R.raw.vertex_shader_render_picture);
@@ -92,13 +109,16 @@ public class RendererPicture extends RendererBase {
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
-        float ratio = width > height ? (float) width / height : (float) height / width;
-        if (width > height) {
-            Matrix.orthoM(mProjectionMatrix, 0, -ratio, ratio, -1f, 1f, -1f, 1f);
-        } else {
-            Matrix.orthoM(mProjectionMatrix, 0, -1f, 1f, -ratio, ratio, -1f, 1f);
-        }
-//        Matrix.setIdentityM(mProjectionMatrix, 0);
+//        float ratio = width > height ? (float) width / height : (float) height / width;
+//        if (width > height) {
+//            Matrix.orthoM(mProjectionMatrix, 0, -ratio, ratio, -1f, 1f, -1f, 1f);
+//        } else {
+//            Matrix.orthoM(mProjectionMatrix, 0, -1f, 1f, -ratio, ratio, -1f, 1f);
+//        }
+        Matrix.setIdentityM(mProjectionMatrix, 0);
+
+        mWidth = width;
+        mHeight = height;
     }
 
     @Override
